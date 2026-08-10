@@ -1,0 +1,774 @@
+/* ============================================================
+   ChurnSense — Premium dark theme
+   Inspiration: Stripe + Linear + Vercel
+   ============================================================ */
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Neutral ramp */
+  --cs-bg: #08090c;
+  --cs-bg-soft: #0d0f14;
+  --cs-surface: #111418;
+  --cs-surface-2: #161a20;
+  --cs-border: rgba(255, 255, 255, 0.07);
+  --cs-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Text */
+  --cs-text: #f7f8fa;
+  --cs-text-muted: #a0a6b0;
+  --cs-text-dim: #6b7280;
+
+  /* Accents */
+  --cs-accent: #6366f1;
+  --cs-accent-2: #8b5cf6;
+  --cs-accent-glow: rgba(99, 102, 241, 0.35);
+
+  /* Semantic */
+  --cs-success: #10b981;
+  --cs-warning: #f59e0b;
+  --cs-danger: #ef4444;
+  --cs-critical: #dc2626;
+
+  /* Radius + shadow */
+  --cs-radius: 16px;
+  --cs-radius-sm: 10px;
+  --cs-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+               0 8px 30px rgba(0, 0, 0, 0.45);
+  --cs-shadow-glow: 0 0 0 1px var(--cs-border),
+                    0 8px 40px var(--cs-accent-glow);
+
+  /* Layout */
+  --cs-maxw: 1140px;
+  --cs-pad: 24px;
+}
+
+/* ---------- Global reset ---------- */
+* { box-sizing: border-box; }
+
+html, body, .stApp {
+  background: var(--cs-bg) !important;
+  color: var(--cs-text) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+               Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root, .stApp { padding: 0 !important; }
+
+/* Ambient gradient backdrop */
+.stApp::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(900px 500px at 12% -8%, rgba(99, 102, 241, 0.18), transparent 60%),
+    radial-gradient(700px 500px at 92% 0%, rgba(139, 92, 246, 0.12), transparent 55%),
+    radial-gradient(800px 600px at 50% 120%, rgba(16, 185, 129, 0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Layout helpers ---------- */
+.cs-container {
+  max-width: var(--cs-maxw);
+  margin: 0 auto;
+  padding: 0 var(--cs-pad);
+}
+
+/* ---------- Header ---------- */
+.cs-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: saturate(160%) blur(14px);
+  background: rgba(8, 9, 12, 0.72);
+  border-bottom: 1px solid var(--cs-border);
+}
+
+.cs-header-inner {
+  max-width: var(--cs-maxw);
+  margin: 0 auto;
+  padding: 14px var(--cs-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cs-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px var(--cs-border-strong),
+              0 4px 14px rgba(99, 102, 241, 0.25);
+}
+
+.cs-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--cs-text);
+}
+
+.cs-brand-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cs-text-dim);
+  padding: 4px 8px;
+  border: 1px solid var(--cs-border);
+  border-radius: 999px;
+  margin-left: 4px;
+}
+
+.cs-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.cs-nav-item {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cs-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cs-nav-item:hover { color: var(--cs-text); }
+
+.cs-nav-item--accent {
+  color: var(--cs-text);
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cs-accent), var(--cs-accent-2));
+  box-shadow: 0 6px 20px var(--cs-accent-glow);
+}
+
+/* ---------- Hero ---------- */
+.cs-hero {
+  max-width: var(--cs-maxw);
+  margin: 0 auto;
+  padding: 72px var(--cs-pad) 36px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cs-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid var(--cs-border-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cs-text-muted);
+  margin-bottom: 22px;
+}
+
+.cs-hero-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cs-success);
+  box-shadow: 0 0 10px var(--cs-success);
+}
+
+.cs-hero-title {
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--cs-text);
+  margin: 0 0 24px;
+}
+
+.cs-hero-title-accent {
+  background: linear-gradient(135deg, #818cf8, #a78bfa 55%, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cs-hero-subtitle {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--cs-text-muted);
+  max-width: 620px;
+  margin: 0 auto !important;
+  text-align: center !important;
+  padding: 0 16px;
+  display: block;
+  clear: both;
+}
+
+/* Force Streamlit markdown wrappers inside hero to inherit centering */
+.cs-hero [data-testid="stMarkdown-container"],
+.cs-hero [data-testid="stMarkdown"] {
+  text-align: center !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.cs-hero [data-testid="stMarkdown"] p {
+  text-align: center !important;
+  max-width: 620px;
+  margin: 0 auto !important;
+}
+
+/* ---------- Section title ---------- */
+.cs-section-title {
+  max-width: var(--cs-maxw);
+  margin: 36px auto 14px;
+  padding: 0 var(--cs-pad);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cs-text-dim);
+}
+
+/* ---------- Form title ---------- */
+.cs-form-title {
+  max-width: var(--cs-maxw);
+  margin: 40px auto 20px;
+  padding: 0 var(--cs-pad);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--cs-text);
+  position: relative;
+  z-index: 1;
+}
+
+.cs-form-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin: 10px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cs-accent), var(--cs-accent-2));
+}
+
+/* ---------- Glass cards ---------- */
+.cs-card {
+  max-width: var(--cs-maxw);
+  margin: 0 auto 24px;
+  padding: 28px;
+  background: linear-gradient(180deg,
+              rgba(255, 255, 255, 0.035),
+              rgba(255, 255, 255, 0.012));
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius);
+  box-shadow: var(--cs-shadow);
+  backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
+}
+
+.cs-card--result {
+  border-color: var(--cs-border-strong);
+  box-shadow: var(--cs-shadow-glow);
+}
+
+.cs-card--recommendation {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.cs-recommendation-icon {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--cs-accent), var(--cs-accent-2));
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 6px 18px var(--cs-accent-glow);
+}
+
+.cs-recommendation-text {
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--cs-text);
+}
+
+/* ---------- Form container (st.container card via :has) ---------- */
+/* Hidden marker placed inside the container so CSS can identify it. */
+.cs-form-marker { display: none; }
+
+/* Style the stVerticalStack that directly contains the marker as a card. */
+div[data-testid="stVerticalStack"]:has(> [data-testid="stMarkdown"] .cs-form-marker) {
+  max-width: var(--cs-maxw);
+  margin: 0 auto 24px;
+  padding: 28px 28px 32px;
+  background: linear-gradient(180deg,
+              rgba(255, 255, 255, 0.035),
+              rgba(255, 255, 255, 0.012));
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius);
+  box-shadow: var(--cs-shadow);
+  position: relative;
+  z-index: 1;
+}
+
+/* Reset Streamlit form element defaults so inner card styling shows */
+form[data-testid="stForm"] {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+/* ---------- Result ---------- */
+.cs-result-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.cs-result-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cs-text-muted);
+}
+
+/* Risk badges */
+.cs-badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.cs-badge--low {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.cs-badge--medium {
+  color: #fcd34d;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+.cs-badge--high {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.cs-badge--critical {
+  color: #fecaca;
+  background: rgba(220, 38, 38, 0.16);
+  border-color: rgba(220, 38, 38, 0.45);
+  box-shadow: 0 0 18px rgba(220, 38, 38, 0.25);
+}
+
+/* Probability blocks */
+.cs-prob-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.cs-prob-block {
+  padding: 20px;
+  border-radius: var(--cs-radius-sm);
+  border: 1px solid var(--cs-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cs-prob-block--churn {
+  background: linear-gradient(180deg,
+              rgba(239, 68, 68, 0.08),
+              rgba(239, 68, 68, 0.02));
+  border-color: rgba(239, 68, 68, 0.22);
+}
+
+.cs-prob-block--retain {
+  background: linear-gradient(180deg,
+              rgba(16, 185, 129, 0.08),
+              rgba(16, 185, 129, 0.02));
+  border-color: rgba(16, 185, 129, 0.22);
+}
+
+.cs-prob-value {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--cs-text);
+}
+
+.cs-prob-caption {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cs-text-dim);
+}
+
+/* Probability meter */
+.cs-meter {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.cs-meter-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs-meter-fill--low { background: linear-gradient(90deg, #10b981, #34d399); }
+.cs-meter-fill--medium { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.cs-meter-fill--high { background: linear-gradient(90deg, #ef4444, #f87171); }
+.cs-meter-fill--critical {
+  background: linear-gradient(90deg, #dc2626, #f87171);
+  box-shadow: 0 0 14px rgba(220, 38, 38, 0.45);
+}
+
+.cs-result-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--cs-text-muted);
+}
+
+.cs-result-meta strong { color: var(--cs-text); font-weight: 600; }
+
+/* ---------- Predict button ---------- */
+.cs-predict-wrap {
+  max-width: var(--cs-maxw);
+  margin: 8px auto 8px;
+  padding: 0 var(--cs-pad);
+}
+
+.cs-predict-wrap button,
+.stButton > button {
+  width: 100%;
+  padding: 14px 22px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--cs-accent), var(--cs-accent-2)) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 26px var(--cs-accent-glow) !important;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+
+.cs-predict-wrap button:hover,
+.stButton > button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 12px 34px var(--cs-accent-glow) !important;
+}
+
+.cs-predict-wrap button:active,
+.stButton > button:active {
+  transform: translateY(0);
+}
+
+/* ---------- Status pills ---------- */
+.cs-status {
+  max-width: var(--cs-maxw);
+  margin: 0 auto 20px;
+  padding: 0 var(--cs-pad);
+}
+
+.cs-status > .cs-status--ok,
+.cs-status > .cs-status--error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid var(--cs-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Inner pill element (the status div itself is the flex container) */
+.cs-status.cs-status--ok,
+.cs-status.cs-status--error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid var(--cs-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cs-status code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.cs-status-dot {
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cs-success);
+  box-shadow: 0 0 8px var(--cs-success);
+}
+
+.cs-status-dot--error {
+  background: var(--cs-danger);
+  box-shadow: 0 0 8px var(--cs-danger);
+}
+
+.cs-status--ok {
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.cs-status--warn {
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.cs-status--info {
+  color: var(--cs-text-muted);
+  border-color: var(--cs-border-strong);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cs-status--error {
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+/* ---------- Field group labels ---------- */
+.cs-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cs-accent-2);
+  margin: 20px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--cs-border);
+}
+
+.cs-group-label--first {
+  margin-top: 0 !important;
+}
+
+/* ---------- Error card ---------- */
+.cs-card--error {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  border-color: rgba(239, 68, 68, 0.3);
+  background: linear-gradient(180deg,
+              rgba(239, 68, 68, 0.06),
+              rgba(239, 68, 68, 0.015));
+}
+
+.cs-error-icon {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.cs-error-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fca5a5;
+  margin-bottom: 6px;
+}
+
+.cs-error-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cs-text-muted);
+  margin: 0 0 8px;
+  word-break: break-word;
+}
+
+.cs-error-hint {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--cs-text-dim);
+  margin: 0;
+}
+
+/* ---------- Footer ---------- */
+.cs-footer {
+  margin-top: 64px;
+  border-top: 1px solid var(--cs-border);
+  background: rgba(8, 9, 12, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.cs-footer-inner {
+  max-width: var(--cs-maxw);
+  margin: 0 auto;
+  padding: 36px var(--cs-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.cs-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cs-footer-brand strong {
+  font-size: 15px;
+  color: var(--cs-text);
+}
+
+.cs-footer-brand span {
+  font-size: 13px;
+  color: var(--cs-text-dim);
+}
+
+.cs-footer-links {
+  display: flex;
+  gap: 22px;
+}
+
+.cs-footer-links span {
+  font-size: 13px;
+  color: var(--cs-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cs-footer-links span:hover { color: var(--cs-text); }
+
+.cs-footer-copy {
+  font-size: 12px;
+  color: var(--cs-text-dim);
+}
+
+/* ---------- Streamlit chrome cleanup ---------- */
+section[data-testid="stSidebar"] { display: none; }
+
+#MainMenu, footer, header[data-testid="stHeader"] {
+  visibility: hidden;
+  height: 0;
+}
+
+.stApp > header { background: transparent !important; }
+
+.block-container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Inputs inherit dark theme */
+.stSlider > div > div > div > div,
+.stNumberInput > div > div > input,
+.stSelectbox > div > div > div,
+.stCheckbox > label {
+  color: var(--cs-text) !important;
+}
+
+.stNumberInput input,
+.stSelectbox div[data-baseweb="select"] {
+  background: var(--cs-surface) !important;
+  border-color: var(--cs-border-strong) !important;
+  color: var(--cs-text) !important;
+  border-radius: 10px !important;
+}
+
+.stSlider [data-baseweb="slider"] {
+  --thumb-color: var(--cs-accent);
+}
+
+.stCheckbox label p { color: var(--cs-text-muted) !important; }
+
+/* Spinner */
+.stSpinner > div {
+  color: var(--cs-text-muted) !important;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  :root { --cs-pad: 18px; }
+
+  .cs-header-inner { padding: 12px var(--cs-pad); }
+  .cs-brand-tag { display: none; }
+  .cs-nav { gap: 16px; }
+  .cs-nav-item:not(.cs-nav-item--accent) { display: none; }
+
+  .cs-hero { padding: 48px var(--cs-pad) 28px; }
+  .cs-hero-title { font-size: clamp(28px, 8vw, 40px); }
+  .cs-hero-subtitle { font-size: 15px; }
+
+  .cs-card { padding: 20px; }
+
+  div[data-testid="stVerticalStack"]:has(> [data-testid="stMarkdown"] .cs-form-marker) {
+    padding: 20px 20px 24px;
+  }
+
+  .cs-prob-row { grid-template-columns: 1fr; }
+  .cs-prob-value { font-size: 28px; }
+
+  .cs-result-meta { flex-direction: column; gap: 6px; }
+
+  .cs-footer-inner { flex-direction: column; text-align: center; }
+  .cs-footer-links { justify-content: center; flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  .cs-card { padding: 16px; }
+  .cs-section-title { margin-top: 28px; }
+  .cs-prob-value { font-size: 24px; }
+}
