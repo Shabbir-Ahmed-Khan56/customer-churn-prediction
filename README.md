@@ -6,7 +6,7 @@ The project covers the complete machine learning workflow: data cleaning, explor
 
 ## 🚀 Live Demo
 
-**Live App:** `https://churnsense-churn-prediction.streamlit.app/`
+**Live App:** [ChurnSense — Live Demo](https://churnsense-churn-prediction.streamlit.app/)
 
 ---
 
