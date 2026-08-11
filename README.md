@@ -24,6 +24,14 @@ ChurnSense takes **19 customer attributes** and uses a trained classification pi
 
 The application is designed around the Telco Customer Churn dataset and uses a telecom-style customer feature set.
 
+## 📸 Application Preview
+
+![ChurnSense Application](assets/app-preview.png)
+
+### Prediction Result
+
+![ChurnSense Prediction Result](assets/prediction-result.png)
+
 ---
 
 ## 🧠 Machine Learning Workflow
